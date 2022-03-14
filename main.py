@@ -1,41 +1,27 @@
 # using flask_restful
+import json
+
 from flask import Flask, jsonify, request
 from flask_restful import Resource, Api
 
 # creating the flask app
+from SensorData import SensorData
+
 app = Flask(__name__)
 # creating an API object
 api = Api(app)
 
 
-# making a class for a particular resource
-# the get, post methods correspond to get and post requests
-# they are automatically mapped by flask_restful.
-# other methods include put, delete, etc.
-class Hello(Resource):
-
-    # corresponds to the GET request.
-    # this function is called whenever there
-    # is a GET request for this resource
-    def get(self):
-        return jsonify({'message': 'hello world'})
-
-    # Corresponds to POST request
+class Sensor(Resource):
     def post(self):
-        data = request.get_json()  # status code
-        return jsonify({'data': data}), 201
+        data = request.get_json()
+
+        sensordata = SensorData.to_object(self, data)
+
+        return json.dumps(sensordata.__dict__)
 
 
-# another resource to calculate the square of a number
-class Square(Resource):
-
-    def get(self, num):
-        return jsonify({'square': num ** 2})
-
-
-# adding the defined resources along with their corresponding urls
-api.add_resource(Hello, '/')
-api.add_resource(Square, '/square/<int:num>')
+api.add_resource(Sensor, '/sensor')
 
 # driver function
 if __name__ == '__main__':
