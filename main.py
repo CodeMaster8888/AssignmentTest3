@@ -5,6 +5,8 @@ from flask import Flask, jsonify, request
 from flask_restful import Resource, Api
 
 # creating the flask app
+import DatabaseConnection
+import MainAI
 from SensorData import SensorData
 
 app = Flask(__name__)
@@ -18,7 +20,11 @@ class Sensor(Resource):
 
         sensordata = SensorData.to_object(self, data)
 
-        return json.dumps(sensordata.__dict__)
+        data = MainAI.Control.mainTask(self, sensorData=sensordata)
+
+        DatabaseConnection.Database.Create(self, data)
+
+        return json.dumps(data.__dict__)
 
 
 api.add_resource(Sensor, '/sensor')
