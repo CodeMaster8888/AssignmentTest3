@@ -12,19 +12,19 @@ from SensorData import SensorData
 app = Flask(__name__)
 
 @app.route('/sensor', methods=['POST'])
-def post(self):
+def post():
     data = request.get_json()
 
-    sensordata = SensorData.to_object(self, data)
+    sensordata = SensorData.to_object(SensorData, data)
 
-    data = MainAI.Control.mainTask(self, sensorData=sensordata)
+    data = MainAI.Control.mainTask(MainAI, sensorData=sensordata)
 
-    DatabaseConnection.Database.Create(self, data)
+    DatabaseConnection.Database.Create(DatabaseConnection, data)
 
     return json.dumps(data.__dict__)
 
 # driver function
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0')
 
 

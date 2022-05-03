@@ -14,10 +14,7 @@ class Database:
                           server + ';PORT=1433;DATABASE=' + database +
                           ';UID=' + username + ';PWD=' + password)
 
-
-
     def Create(self, sensorData):
-
         curr_obj = conn.cursor()
 
         sensor1 = sensorData.sensor1
@@ -28,7 +25,8 @@ class Database:
         light1 = sensorData.light1
         datetime = sensorData.datetime
 
-        query = "INSERT INTO SensorDataset VALUES (1,%s,%s,%s,%s,%s,%s,'%s')" % (sensor1, sensor2, sensor3, motor1, motor2, light1, datetime)
+        query = "INSERT INTO SensorDataset VALUES (1,%s,%s,%s,%s,%s,%s,'%s')" % (
+        sensor1, sensor2, sensor3, motor1, motor2, light1, datetime)
 
         conn.execute(query)
 
