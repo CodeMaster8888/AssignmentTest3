@@ -1,6 +1,6 @@
 class SensorData:
 
-    def __init__(self, sensor1, sensor2,sensor3, motor1, motor2, light1, datetime):
+    def __init__(self, sensor1, sensor2,sensor3, motor1, motor2, light1, datetime, __class__):
         self.sensor1 = sensor1
         self.sensor2 = sensor2
         self.sensor3 = sensor3
@@ -8,6 +8,7 @@ class SensorData:
         self.motor2 = motor2
         self.light1 = light1
         self.datetime = datetime
+        self.__class__ = __class__
 
     def to_object(self, object):
         if object['__class__'] == "SensorData":
@@ -17,7 +18,8 @@ class SensorData:
                               object['motor1'],
                               object['motor2'],
                               object['light1'],
-                              object['datetime'])
+                              object['datetime'],
+                              object['__class__'])
         return inst
 
     sensor1 = 0
@@ -27,5 +29,6 @@ class SensorData:
     motor2 = 0
     light1 = 0
     datetime = None
+    __class__ = "SensorData"
 
 
