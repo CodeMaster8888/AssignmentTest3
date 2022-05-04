@@ -32,7 +32,7 @@ class Database:
         conn.commit()
 
     def Get(self):
-        query = "SELECT [sensor1],[sensor2],[sensor3],[motor1],[motor2],[light1],[DateTime] FROM [dbo].[SensorDataset]"
+        query = "SELECT TOP (1) [sensor1],[sensor2],[sensor3],[motor1],[motor2],[light1],[DateTime] FROM [dbo].[SensorDataset] ORDER BY DateTime desc"
 
         data = conn.execute(query)
 
