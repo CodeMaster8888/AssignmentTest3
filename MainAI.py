@@ -7,15 +7,12 @@ class Control:
         data = DatabaseConnection.Database.Get(self)
 
         if sensorData.sensor1 == 1:
-            if sensorData.motor1 == 1:
-                sensorData.motor1 = 0
-            else:
-                sensorData.motor1 = 1
+            sensorData.motor1 = 1
         if sensorData.sensor2 == 1:
             if Control.Calculate_1_2(self, data):
                 sensorData.motor1 = 0
             if sensorData.motor2 == 1:
-                sensorData.motor1 = 0
+                sensorData.motor2 = 0
             else:
                 sensorData.motor2 = 1
         if sensorData.sensor3 == 1:
